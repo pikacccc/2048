@@ -15,7 +15,7 @@ public class Game2048Canvas extends GameCanvas implements CommandListener {
     public Command cmdBack = new Command("", Command.EXIT, 1);
 
     public Game2048Canvas(Midlet midlet) {
-        super(true);
+        super(false);
         this.setFullScreenMode(true);
         this.midlet = midlet;
         drawHandler = new GameDrawHandler(this);
