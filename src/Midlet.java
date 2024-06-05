@@ -7,22 +7,24 @@ import javax.microedition.midlet.*;
 public class Midlet extends MIDlet implements CommandListener {
     private final Display display;
     private final Game2048Canvas canvas;
-    
+
 
     public Midlet() {
         this.display = Display.getDisplay(this);
-        this.canvas = new Game2048Canvas();
+        this.canvas = new Game2048Canvas(this);
         this.canvas.setCommandListener(this);
     }
 
     public void startApp() {
+        canvas.Start();
         display.setCurrent(canvas);
     }
-    
+
     public void pauseApp() {
     }
-    
+
     public void destroyApp(boolean unconditional) {
+        canvas.Stop();
         display.setCurrent(null);
     }
 
