@@ -3,6 +3,7 @@ import javax.microedition.lcdui.*;
 import javax.microedition.lcdui.game.GameCanvas;
 
 public class Game2048Canvas extends GameCanvas implements CommandListener {
+    public int HISCORE = 0;
     int freeCount;
     private final Random random = new Random();
     public short[][] state = new short[4][4];
@@ -38,6 +39,16 @@ public class Game2048Canvas extends GameCanvas implements CommandListener {
 
     protected void keyPressed(int keyCode) {
         if (!isPlay) return;
+        boolean isGameOver = isGameOver();
+        if (isGameOver) {
+            if (score > HISCORE) {
+                HISCORE = score;
+            }
+            midlet.OpenGameOver();
+            midlet.CloseGame();
+            return;
+        }
+
         int action = getGameAction(keyCode);
 
         boolean isModified = false;
@@ -62,6 +73,7 @@ public class Game2048Canvas extends GameCanvas implements CommandListener {
                 isModified = moveRight();
                 break;
         }
+
         if (!isModified) {
             return;
         }
@@ -250,6 +262,38 @@ public class Game2048Canvas extends GameCanvas implements CommandListener {
             }
         }
         return result;
+    }
+
+    public boolean isGameOver() {
+        // 检查是否还有空格
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (state[i][j] == 0) {
+                    return false; // 只要有一个空格，游戏就还没有结束
+                }
+            }
+        }
+
+        // 检查水平方向是否还有相邻可合并的数字
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (state[i][j] == state[i][j + 1]) {
+                    return false; // 存在相邻可合并的数字，游戏还没有结束
+                }
+            }
+        }
+
+        // 检查垂直方向是否还有相邻可合并的数字
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 3; i++) {
+                if (state[i][j] == state[i + 1][j]) {
+                    return false; // 存在相邻可合并的数字，游戏还没有结束
+                }
+            }
+        }
+
+        // 如果以上条件都不满足，则游戏结束
+        return true;
     }
 
     private void insertNew() {

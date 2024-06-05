@@ -6,17 +6,24 @@ import javax.microedition.midlet.*;
 
 public class Midlet extends MIDlet {
     private final Display display;
-    private final Game2048Canvas canvas;
+    public final Game2048Canvas canvas;
+    public GameOver gameOver;
     public Menu gameMenu;
+    public RecordStores rs;
 
     public Midlet() {
+        rs = new RecordStores("ES.2048", 1);
         this.display = Display.getDisplay(this);
         this.canvas = new Game2048Canvas(this);
         gameMenu = new Menu();
         gameMenu.midlet = this;
+        gameOver = new GameOver();
+        gameOver.midlet = this;
     }
 
     public void startApp() {
+        int nr = rs.getNumRecords();
+        if (nr > 0) canvas.HISCORE = rs.getRecord(1);
         OpenMenu();
     }
 
@@ -24,6 +31,8 @@ public class Midlet extends MIDlet {
     }
 
     public void destroyApp(boolean unconditional) {
+        rs.setRecord(1, canvas.HISCORE);
+        rs.closeRecords();
         canvas.Stop();
         display.setCurrent(null);
     }
@@ -49,5 +58,14 @@ public class Midlet extends MIDlet {
     public void exitMIDlet() {
         destroyApp(true);
         notifyDestroyed();
+    }
+
+    public void OpenGameOver() {
+        gameOver.start();
+        display.setCurrent(gameOver);
+    }
+
+    public void CloseGameOver() {
+        gameOver.stop();
     }
 }
