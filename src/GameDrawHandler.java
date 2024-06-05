@@ -7,6 +7,7 @@ public class GameDrawHandler {
     private Image bg;
     private Image gameBg;
     private Image scoreTitle;
+    private Image btnBack;
     private Image[] numbers;
     private DrawNumberHandler numHandler;
     private Game2048Canvas canvas;
@@ -53,6 +54,7 @@ public class GameDrawHandler {
         bg = Util.LoadImg("/background.png");
         gameBg = Util.LoadImg("/bg_play.png");
         scoreTitle = Util.LoadImg("/title_pt.png");
+        btnBack = Util.LoadImg("/btn_back.png");
         Image tempNumber = Util.LoadImg("/2048.png");
         numHandler = new DrawNumberHandler("/number.png", 32, 48);
         numbers = new Image[12];
@@ -78,6 +80,7 @@ public class GameDrawHandler {
         }
         g.drawImage(scoreTitle, scoreTitle_x, scoreTitle_y, 0);
         numHandler.ShowNumber(g, canvas.score, Score_x, Score_y, AlignmentType.Left);
+        DrawBtnBack(g);
     }
 
     public int findN(int num) {
@@ -92,5 +95,11 @@ public class GameDrawHandler {
         }
 
         return n;
+    }
+
+    private void DrawBtnBack(Graphics g) {
+        int x = 50;
+        int y = height - 50;
+        g.drawImage(btnBack, x, y, Graphics.TOP | Graphics.LEFT);
     }
 }

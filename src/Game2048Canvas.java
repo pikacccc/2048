@@ -1,10 +1,8 @@
 import java.util.Random;
-import javax.microedition.lcdui.Canvas;
-import javax.microedition.lcdui.Command;
-import javax.microedition.lcdui.Font;
-import javax.microedition.lcdui.Graphics;
+import javax.microedition.lcdui.*;
+import javax.microedition.lcdui.game.GameCanvas;
 
-public class Game2048Canvas extends Canvas {
+public class Game2048Canvas extends GameCanvas implements CommandListener {
     int freeCount;
     private final Random random = new Random();
     public short[][] state = new short[4][4];
@@ -12,15 +10,17 @@ public class Game2048Canvas extends Canvas {
     private GameDrawHandler drawHandler;
 
     public boolean isPlay = false;
-    private Command command = new Command("Exit", Command.EXIT, 60);
-
     public Midlet midlet;
 
+    public Command cmdBack = new Command("", Command.EXIT, 1);
+
     public Game2048Canvas(Midlet midlet) {
+        super(true);
+        this.setFullScreenMode(true);
         this.midlet = midlet;
         drawHandler = new GameDrawHandler(this);
-
-        addCommand(command);
+        addCommand(cmdBack);
+        setCommandListener(this);
     }
 
     public void Start() {
@@ -276,9 +276,15 @@ public class Game2048Canvas extends Canvas {
         }
     }
 
-    protected void paint(Graphics g) {
+    public void paint(Graphics g) {
         if (!isPlay) return;
         drawHandler.Draw(g);
     }
 
+    public void commandAction(Command c, Displayable displayable) {
+        if (c == cmdBack) {
+            midlet.OpenMenu();
+            midlet.CloseGame();
+        }
+    }
 }
