@@ -57,8 +57,8 @@ public class GameDrawHandler {
         btnBack = Util.LoadImg("/btn_back.png");
         Image tempNumber = Util.LoadImg("/2048.png");
         numHandler = new DrawNumberHandler("/number.png", 32, 48);
-        numbers = new Image[12];
-        for (int i = 0; i < 12; ++i) {
+        numbers = new Image[17];
+        for (int i = 0; i < 17; ++i) {
             numbers[i] = Image.createImage(tempNumber, i * 150, 0, 150, 150, Sprite.TRANS_NONE);
         }
 
