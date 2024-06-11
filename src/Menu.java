@@ -6,7 +6,6 @@ public class Menu extends GameCanvas implements CommandListener, Runnable {
     private boolean isRunning = false;
     private Graphics g;
     private int selectedOption = 0;
-    private Command selectCommand;
 
     public Midlet midlet;
 
@@ -30,9 +29,6 @@ public class Menu extends GameCanvas implements CommandListener, Runnable {
         super(false);
         this.setFullScreenMode(true);
         g = getGraphics();
-        selectCommand = new Command("", Command.OK, 0);
-        addCommand(selectCommand);
-        setCommandListener(this);
         LoadImages();
         InitCoordinates();
     }
@@ -126,11 +122,11 @@ public class Menu extends GameCanvas implements CommandListener, Runnable {
 
     protected void keyPressed(int keyCode) {
         int gameAction = getGameAction(keyCode);
-        if (gameAction == UP || gameAction == LEFT || gameAction == KEY_NUM2 || gameAction == KEY_NUM4) {
+        if (gameAction == UP) {
             selectedOption = (selectedOption - 1 + 2) % 2;
-        } else if (gameAction == DOWN || gameAction == RIGHT || gameAction == KEY_NUM8 || gameAction == KEY_NUM6) {
+        } else if (gameAction == DOWN) {
             selectedOption = (selectedOption + 1) % 2;
-        } else if (gameAction == FIRE || gameAction == KEY_NUM5) {
+        } else if (gameAction == FIRE) {
             executeSelectedOption();
         }
     }
@@ -145,8 +141,6 @@ public class Menu extends GameCanvas implements CommandListener, Runnable {
     }
 
     public void commandAction(Command command, Displayable displayable) {
-//        if (command == selectCommand) {
-//            executeSelectedOption();
-//        }
+
     }
 }

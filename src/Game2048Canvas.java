@@ -1,3 +1,5 @@
+import com.sun.j2me.global.NumberFormat;
+
 import java.util.Random;
 import javax.microedition.lcdui.*;
 import javax.microedition.lcdui.game.GameCanvas;
@@ -13,15 +15,12 @@ public class Game2048Canvas extends GameCanvas implements CommandListener {
     public boolean isPlay = false;
     public Midlet midlet;
 
-    public Command cmdBack = new Command("", Command.EXIT, 1);
 
     public Game2048Canvas(Midlet midlet) {
         super(false);
         this.setFullScreenMode(true);
         this.midlet = midlet;
         drawHandler = new GameDrawHandler(this);
-        addCommand(cmdBack);
-        setCommandListener(this);
     }
 
     public void Start() {
@@ -48,9 +47,12 @@ public class Game2048Canvas extends GameCanvas implements CommandListener {
             midlet.CloseGame();
             return;
         }
-
         int action = getGameAction(keyCode);
-
+        if (keyCode == -6 || keyCode == 8 || keyCode == 96 || keyCode == -8 || keyCode == -7) {
+            midlet.OpenMenu();
+            midlet.CloseGame();
+            return;
+        }
         boolean isModified = false;
         switch (action) {
             case Canvas.LEFT:
@@ -326,9 +328,5 @@ public class Game2048Canvas extends GameCanvas implements CommandListener {
     }
 
     public void commandAction(Command c, Displayable displayable) {
-        if (c == cmdBack) {
-            midlet.OpenMenu();
-            midlet.CloseGame();
-        }
     }
 }
