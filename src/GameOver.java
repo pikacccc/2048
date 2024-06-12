@@ -48,7 +48,7 @@ public class GameOver extends GameCanvas implements CommandListener, Runnable {
         GameOver = Util.LoadImg("/gameover.png");
         Restart = Util.LoadImg("/btn_restart.png");
         Exit = Util.LoadImg("/btn_quit.png");
-        this.drawNumberHandler = new DrawNumberHandler("/number.png", 32, 48);
+        this.drawNumberHandler = new DrawNumberHandler("/number.png", 16, 24);
     }
 
     public void InitCoordinates() {
@@ -61,17 +61,17 @@ public class GameOver extends GameCanvas implements CommandListener, Runnable {
         bg_x = center_x - Bg.getWidth() / 2;
         bg_y = center_y - Bg.getHeight() / 2;
         gameOver_x = center_x - GameOver.getWidth() / 2;
-        gameOver_y = center_y - GameOver.getHeight() / 2 - 100;
+        gameOver_y = center_y - GameOver.getHeight() / 2 - 70;
         restart_x = center_x - Restart.getWidth() / 2;
-        restart_y = center_y - Restart.getHeight() / 2 + 135;
+        restart_y = center_y - Restart.getHeight() / 2 + 120;
         exit_x = center_x - Exit.getWidth() / 2;
-        exit_y = center_y - Exit.getHeight() / 2 + 210;
+        exit_y = center_y - Exit.getHeight() / 2 + 170;
 
         score_x = center_x;
-        score_y = center_y - 60;
+        score_y = center_y - 50;
 
         hiScore_x = center_x;
-        hiScore_y = center_y + 50;
+        hiScore_y = center_y + 35;
     }
 
     public void start() {
@@ -125,14 +125,14 @@ public class GameOver extends GameCanvas implements CommandListener, Runnable {
         } else {
             g.setColor(0xFFFFCF);
         }
-        g.fillRect(restart_x - 70, restart_y - 15, 300, 56);
+        g.fillRect(restart_x - 32, restart_y - 8, 160, 32);
         g.drawImage(Restart, restart_x, restart_y, 0);
         if (selectedOption == 1) {
             g.setColor(0xFADF5F);
         } else {
             g.setColor(0xFFFFCF);
         }
-        g.fillRect(exit_x - 70, exit_y - 15, 300, 56);
+        g.fillRect(exit_x - 32, exit_y - 8, 160, 32);
         g.drawImage(Exit, exit_x, exit_y, 0);
         drawNumberHandler.ShowNumber(g, midlet.canvas.score, score_x, score_y, AlignmentType.Center);
         drawNumberHandler.ShowNumber(g, midlet.canvas.HISCORE, hiScore_x, hiScore_y, AlignmentType.Center);

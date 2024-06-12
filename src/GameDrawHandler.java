@@ -6,8 +6,6 @@ import java.util.Hashtable;
 public class GameDrawHandler {
     private Image bg;
     private Image gameBg;
-    private Image scoreTitle;
-    private Image btnBack;
     private Image[] numbers;
     private DrawNumberHandler numHandler;
     private Game2048Canvas canvas;
@@ -22,8 +20,6 @@ public class GameDrawHandler {
     private int gameBg_y;
     private int gameStart_x;
     private int gameStart_y;
-    private int scoreTitle_x;
-    private int scoreTitle_y;
     private int Score_x;
     private int Score_y;
 
@@ -42,24 +38,20 @@ public class GameDrawHandler {
         bg_y = center_y - bg.getHeight() / 2;
         gameBg_x = center_x - gameBg.getWidth() / 2;
         gameBg_y = center_y - gameBg.getHeight() / 2;
-        Score_x = center_x + 350;
-        Score_y = center_y + 50;
-        scoreTitle_x = center_x - scoreTitle.getHeight() / 2 + 350;
-        scoreTitle_y = center_y - scoreTitle.getHeight() / 2 - 50;
-        gameStart_x = center_x - 300;
-        gameStart_y = center_y - 300;
+        Score_x = center_x;
+        Score_y = gameBg_y-20;
+        gameStart_x = gameBg_x+3;
+        gameStart_y = gameBg_y+3;
     }
 
     public void InitImages() {
         bg = Util.LoadImg("/background.png");
         gameBg = Util.LoadImg("/bg_play.png");
-        scoreTitle = Util.LoadImg("/title_pt.png");
-        btnBack = Util.LoadImg("/btn_back.png");
         Image tempNumber = Util.LoadImg("/2048.png");
-        numHandler = new DrawNumberHandler("/number.png", 32, 48);
+        numHandler = new DrawNumberHandler("/number.png", 16, 24);
         numbers = new Image[17];
         for (int i = 0; i < 17; ++i) {
-            numbers[i] = Image.createImage(tempNumber, i * 150, 0, 150, 150, Sprite.TRANS_NONE);
+            numbers[i] = Image.createImage(tempNumber, i * 110, 0, 110, 110, Sprite.TRANS_NONE);
         }
 
     }
@@ -74,13 +66,11 @@ public class GameDrawHandler {
                 int val = (int) ses[j];
                 if (val != 0) {
                     int a = findN(val);
-                    g.drawImage(numbers[a], gameStart_x + i * 150, gameStart_y + j * 150, 0);
+                    g.drawImage(numbers[a], gameStart_x + i * 110, gameStart_y + j * 110, 0);
                 }
             }
         }
-        g.drawImage(scoreTitle, scoreTitle_x, scoreTitle_y, 0);
-        numHandler.ShowNumber(g, canvas.score, Score_x, Score_y, AlignmentType.Left);
-        DrawBtnBack(g);
+        numHandler.ShowNumber(g, canvas.score, Score_x, Score_y, AlignmentType.Center);
     }
 
     public int findN(int num) {
@@ -95,11 +85,5 @@ public class GameDrawHandler {
         }
 
         return n;
-    }
-
-    private void DrawBtnBack(Graphics g) {
-        int x = 50;
-        int y = height - 50;
-        g.drawImage(btnBack, x, y, Graphics.TOP | Graphics.LEFT);
     }
 }

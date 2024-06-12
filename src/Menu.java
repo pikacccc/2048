@@ -50,11 +50,11 @@ public class Menu extends GameCanvas implements CommandListener, Runnable {
         bg_x = center_x - Bg.getWidth() / 2;
         bg_y = center_y - Bg.getHeight() / 2;
         title_x = center_x - Title.getWidth() / 2;
-        title_y = center_y - Title.getHeight() / 2 - 100;
+        title_y = center_y - Title.getHeight() / 2 - 70;
         play_x = center_x - Play.getWidth() / 2;
-        play_y = center_y - Play.getHeight() / 2 + 135;
+        play_y = center_y - Play.getHeight() / 2 + 120;
         exit_x = center_x - Exit.getWidth() / 2;
-        exit_y = center_y - Exit.getHeight() / 2 + 210;
+        exit_y = center_y - Exit.getHeight() / 2 + 170;
     }
 
     public void start() {
@@ -108,14 +108,14 @@ public class Menu extends GameCanvas implements CommandListener, Runnable {
         } else {
             g.setColor(0xFFFFCF);
         }
-        g.fillRect(play_x - 70, play_y - 15, 300, 56);
+        g.fillRect(play_x - 32, play_y - 8, 160, 32);
         g.drawImage(Play, play_x, play_y, 0);
         if (selectedOption == 1) {
             g.setColor(0xFADF5F);
         } else {
             g.setColor(0xFFFFCF);
         }
-        g.fillRect(exit_x - 70, exit_y - 15, 300, 56);
+        g.fillRect(exit_x - 32, exit_y - 8, 160, 32);
         g.drawImage(Exit, exit_x, exit_y, 0);
         flushGraphics();
     }
