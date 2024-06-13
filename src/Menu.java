@@ -87,10 +87,11 @@ public class Menu extends GameCanvas implements CommandListener, Runnable {
     }
 
     public void run() {
+        draw();
         while (isRunning) {
-            tick();
-            if (!isRunning) break;
-            draw();
+//            tick();
+//            if (!isRunning) break;
+//            draw();
         }
     }
 
@@ -129,6 +130,7 @@ public class Menu extends GameCanvas implements CommandListener, Runnable {
         } else if (gameAction == FIRE) {
             executeSelectedOption();
         }
+        draw();
     }
 
     private void executeSelectedOption() {
