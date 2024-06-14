@@ -4,7 +4,6 @@ import javax.microedition.lcdui.game.Sprite;
 import java.util.Hashtable;
 
 public class GameDrawHandler {
-    private Image bg;
     private Image gameBg;
     private Image[] numbers;
     private DrawNumberHandler numHandler;
@@ -34,8 +33,8 @@ public class GameDrawHandler {
     public void InitCoordinates() {
         center_x = width / 2;
         center_y = height / 2;
-        bg_x = center_x - bg.getWidth() / 2;
-        bg_y = center_y - bg.getHeight() / 2;
+        bg_x = center_x - Util.bg.getWidth() / 2;
+        bg_y = center_y - Util.bg.getHeight() / 2;
         gameBg_x = center_x - gameBg.getWidth() / 2;
         gameBg_y = center_y - gameBg.getHeight() / 2;
         Score_x = center_x;
@@ -45,7 +44,6 @@ public class GameDrawHandler {
     }
 
     public void InitImages() {
-        bg = Util.LoadImg("/background.png");
         gameBg = Util.LoadImg("/bg_play.png");
         Image tempNumber = Util.LoadImg("/2048.png");
         numHandler = new DrawNumberHandler("/number.png", 16, 24);
@@ -57,7 +55,7 @@ public class GameDrawHandler {
     }
 
     public void Draw(Graphics g) {
-        g.drawImage(bg, bg_x, bg_y, 0);
+        g.drawImage(Util.bg, bg_x, bg_y, 0);
         g.drawImage(gameBg, gameBg_x, gameBg_y, 0);
         short[][] state = canvas.state;
         for (int i = 0; i < state.length; i++) {
