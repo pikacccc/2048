@@ -4,7 +4,7 @@ import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.midlet.*;
 
-public class Midlet extends MIDlet {
+public class Midlet extends MIDlet implements IExit {
     private final Display display;
     public final Game2048Canvas canvas;
     public GameOver gameOver;
@@ -67,5 +67,9 @@ public class Midlet extends MIDlet {
 
     public void CloseGameOver() {
         gameOver.stop();
+    }
+
+    public void Exit() {
+        exitMIDlet();
     }
 }

@@ -4,7 +4,7 @@ import java.util.Random;
 import javax.microedition.lcdui.*;
 import javax.microedition.lcdui.game.GameCanvas;
 
-public class Game2048Canvas extends GameCanvas implements CommandListener {
+public class Game2048Canvas extends GameCanvas implements IRestartGame {
     public int HISCORE = 0;
     int freeCount;
     private final Random random = new Random();
@@ -15,12 +15,15 @@ public class Game2048Canvas extends GameCanvas implements CommandListener {
     public boolean isPlay = false;
     public Midlet midlet;
 
+    public boolean pause = false;
+    private PausePannel pp;
 
     public Game2048Canvas(Midlet midlet) {
         super(false);
         this.setFullScreenMode(true);
         this.midlet = midlet;
         drawHandler = new GameDrawHandler(this);
+        pp = new PausePannel(midlet, this, this.getWidth(), this.getHeight());
     }
 
     public void Start() {
@@ -49,38 +52,40 @@ public class Game2048Canvas extends GameCanvas implements CommandListener {
         }
         int action = getGameAction(keyCode);
         if (keyCode == -6 || keyCode == 8 || keyCode == 96 || keyCode == -8 || keyCode == -7) {
-            midlet.OpenMenu();
-            midlet.CloseGame();
-            return;
+            pause = true;
         }
-        boolean isModified = false;
-        switch (action) {
-            case Canvas.LEFT:
-            case Canvas.KEY_NUM4:
-                isModified = moveUp();
-                break;
+        if (!pause) {
+            boolean isModified = false;
+            switch (action) {
+                case Canvas.LEFT:
+                case Canvas.KEY_NUM4:
+                    isModified = moveUp();
+                    break;
 
-            case Canvas.UP:
-            case Canvas.KEY_NUM2:
-                isModified = moveLeft();
-                break;
+                case Canvas.UP:
+                case Canvas.KEY_NUM2:
+                    isModified = moveLeft();
+                    break;
 
-            case Canvas.RIGHT:
-            case Canvas.KEY_NUM6:
-                isModified = moveDown();
-                break;
+                case Canvas.RIGHT:
+                case Canvas.KEY_NUM6:
+                    isModified = moveDown();
+                    break;
 
-            case Canvas.DOWN:
-            case Canvas.KEY_NUM8:
-                isModified = moveRight();
-                break;
+                case Canvas.DOWN:
+                case Canvas.KEY_NUM8:
+                    isModified = moveRight();
+                    break;
+            }
+
+            if (!isModified) {
+                return;
+            }
+
+            insertNew();
+        } else {
+            pp.keyPressed(action);
         }
-
-        if (!isModified) {
-            return;
-        }
-
-        insertNew();
         repaint();
     }
 
@@ -325,8 +330,11 @@ public class Game2048Canvas extends GameCanvas implements CommandListener {
     public void paint(Graphics g) {
         if (!isPlay) return;
         drawHandler.Draw(g);
+        if (pause) pp.Draw(g);
     }
 
-    public void commandAction(Command c, Displayable displayable) {
+    public void RestartGame() {
+        pause = false;
+        repaint();
     }
 }

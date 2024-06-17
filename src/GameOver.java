@@ -124,14 +124,14 @@ public class GameOver extends GameCanvas implements CommandListener, Runnable {
         } else {
             g.setColor(0xFFFFCF);
         }
-        g.fillRect(restart_x - 32, restart_y - 8, 160, 32);
+        g.fillRect(restart_x - 32, restart_y - 10, 145, 32);
         g.drawImage(Restart, restart_x, restart_y, 0);
         if (selectedOption == 1) {
             g.setColor(0xFADF5F);
         } else {
             g.setColor(0xFFFFCF);
         }
-        g.fillRect(exit_x - 32, exit_y - 8, 160, 32);
+        g.fillRect(exit_x - 32, exit_y - 10, 145, 32);
         g.drawImage(Exit, exit_x, exit_y, 0);
         drawNumberHandler.ShowNumber(g, midlet.canvas.score, score_x, score_y, AlignmentType.Center);
         drawNumberHandler.ShowNumber(g, midlet.canvas.HISCORE, hiScore_x, hiScore_y, AlignmentType.Center);
