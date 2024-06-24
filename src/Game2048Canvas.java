@@ -51,8 +51,10 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame {
             return;
         }
         int action = getGameAction(keyCode);
-        if (keyCode == -6 || keyCode == 8 || keyCode == 96 || keyCode == -8 || keyCode == -7) {
-            pause = true;
+        if (keyCode == 8 || keyCode == 96 || (keyCode <= -6 && keyCode >= -20)) {
+            if (action != FIRE && action != UP && action != LEFT && action != RIGHT && action != DOWN) {
+                pause = true;
+            }
         }
         if (!pause) {
             boolean isModified = false;
