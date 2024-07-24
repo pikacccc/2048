@@ -1,12 +1,10 @@
 import javax.microedition.lcdui.*;
 import javax.microedition.lcdui.game.GameCanvas;
 
-public class GameOver extends GameCanvas implements CommandListener, Runnable {
+public class GameOver extends GameCanvas implements Runnable {
     private boolean isRunning = false;
     private Graphics g;
     private int selectedOption = 0;
-    private Command selectCommand;
-
     public Midlet midlet;
 
     private Image GameOver;
@@ -35,9 +33,6 @@ public class GameOver extends GameCanvas implements CommandListener, Runnable {
         super(false);
         setFullScreenMode(true);
         g = getGraphics();
-        selectCommand = new Command("", Command.OK, 0);
-        addCommand(selectCommand);
-        setCommandListener(this);
         LoadImages();
         InitCoordinates();
     }
@@ -90,24 +85,7 @@ public class GameOver extends GameCanvas implements CommandListener, Runnable {
     private int keyTrigger = 0;
 
     private void tick() {
-//        int keys = getKeyStates();
-//
-//        int inv = 0xffffffff - keyTrigger;
-//        int key = inv & keys;
-//        keyTrigger &= keys;
-//
-//        if ((key & DOWN_PRESSED) != 0) {
-//            selectedOption = (selectedOption + 1) % 2;
-//            keyTrigger |= DOWN_PRESSED;
-//        }
-//        if ((key & UP_PRESSED) != 0) {
-//            selectedOption = (selectedOption - 1 + 2) % 2;
-//            keyTrigger |= UP_PRESSED;
-//        }
-//        if ((key & FIRE_PRESSED) != 0) {
-//            executeSelectedOption();
-//            keyTrigger |= FIRE_PRESSED;
-//        }
+
     }
 
     public void stop() {
@@ -157,11 +135,5 @@ public class GameOver extends GameCanvas implements CommandListener, Runnable {
         } else if (selectedOption == 1) {
             midlet.exitMIDlet();
         }
-    }
-
-    public void commandAction(Command command, Displayable displayable) {
-//        if (command == selectCommand) {
-//            executeSelectedOption();
-//        }
     }
 }
