@@ -4,7 +4,7 @@ import java.util.Random;
 import javax.microedition.lcdui.*;
 import javax.microedition.lcdui.game.GameCanvas;
 
-public class Game2048Canvas extends GameCanvas implements IRestartGame {
+public class Game2048Canvas extends GameCanvas implements IRestartGame,Runnable {
     public int HISCORE = 0;
     int freeCount;
     private final Random random = new Random();
@@ -33,6 +33,8 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame {
         score = 0;
         insertNew();
         insertNew();
+        Thread thread = new Thread(this);
+        thread.start();
     }
 
     public void Stop() {
@@ -338,5 +340,11 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame {
     public void RestartGame() {
         pause = false;
         repaint();
+    }
+
+    public void run() {
+        while (isPlay){
+            repaint();
+        }
     }
 }
