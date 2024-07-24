@@ -335,6 +335,7 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame,Runnable 
         if (!isPlay) return;
         drawHandler.Draw(g);
         if (pause) pp.Draw(g);
+        flushGraphics();
     }
 
     public void RestartGame() {
@@ -343,8 +344,8 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame,Runnable 
     }
 
     public void run() {
-        while (isPlay){
-            repaint();
-        }
+//        while (isPlay){
+//            repaint();
+//        }
     }
 }
