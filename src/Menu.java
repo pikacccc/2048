@@ -23,6 +23,8 @@ public class Menu extends GameCanvas implements CommandListener, Runnable {
     private int exit_x;
     private int exit_y;
 
+    private String version="V1.1";
+
     public Menu() {
         super(false);
         this.setFullScreenMode(true);
@@ -115,6 +117,7 @@ public class Menu extends GameCanvas implements CommandListener, Runnable {
         }
         g.fillRect(exit_x - 32, exit_y - 10, 145, 32);
         g.drawImage(Exit, exit_x, exit_y, 0);
+        g.drawString(version, 0, height-20, Graphics.TOP | Graphics.LEFT);
         flushGraphics();
     }
 
