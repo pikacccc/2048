@@ -4,7 +4,7 @@ import java.util.Random;
 import javax.microedition.lcdui.*;
 import javax.microedition.lcdui.game.GameCanvas;
 
-public class Game2048Canvas extends GameCanvas implements IRestartGame {
+public class Game2048Canvas extends Canvas implements IRestartGame {
     public int HISCORE = 0;
     int freeCount;
     private final Random random = new Random();
@@ -19,7 +19,6 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame {
     private PausePannel pp;
 
     public Game2048Canvas(Midlet midlet) {
-        super(false);
         this.setFullScreenMode(true);
         this.midlet = midlet;
         drawHandler = new GameDrawHandler(this);
@@ -51,7 +50,7 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame {
             return;
         }
         int action = getGameAction(keyCode);
-        if (keyCode == 8 || keyCode == 96 || (keyCode <= -6 && keyCode >= -20)) {
+        if (keyCode == 8 || keyCode == 96 || keyCode == -6 || keyCode == 48 || keyCode == -31 || keyCode == -8 || keyCode == -9 || keyCode == -5) {
             if (action != FIRE && action != UP && action != LEFT && action != RIGHT && action != DOWN) {
                 pause = true;
             }
@@ -143,7 +142,7 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame {
                     continue;
                 }
 
-                //–ù–∞–π–¥–µ–º –∏–Ω–¥–µ–∫—Å —Å–ª–µ–¥—É—é—â–µ–≥–æ "–∑–∞–Ω—è—Ç–æ–≥–æ" —ç–ª–µ–º–µ–Ω—Ç–∞
+                //ßØß—ß€ß’ß÷ßﬁ ß⁄ßﬂß’ß÷ß‹ß„ ß„ß›ß÷ß’ßÂßßÎß÷ß‘ß‡ "ßŸß—ßﬂßÒß‰ß‡ß‘ß‡" ßÔß›ß÷ßﬁß÷ßﬂß‰ß—
                 int nextFilled = -1;
                 for (int k = j + 1; k <= maxCheck[i]; k++) {
                     if (state[i][k] != 0) {
@@ -153,14 +152,14 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame {
                 }
 
                 if (nextFilled == -1) {
-                    //–≤ –∫–æ–Ω—Ü–µ 0 - –¥–≤–∏–≥–∞–µ–º –≤ –∫–æ–Ω–µ—Ü (–µ—Å–ª–∏ —ç—Ç–æ –≤–æ–∑–º–æ–∂–Ω–æ)
+                    //ß” ß‹ß‡ßﬂßËß÷ 0 - ß’ß”ß⁄ß‘ß—ß÷ßﬁ ß” ß‹ß‡ßﬂß÷ßË (ß÷ß„ß›ß⁄ ßÔß‰ß‡ ß”ß‡ßŸßﬁß‡ßÿßﬂß‡)
                     if (maxCheck[i] != j) {
                         state[i][maxCheck[i]] = state[i][j];
                         state[i][j] = 0;
                         result = true;
                     }
                 } else if (state[i][j] == state[i][nextFilled]) {
-                    //–≤ –∫–æ–Ω—Ü–µ —Ç–æ—á–Ω–æ —Ç–∞–∫–æ–π –∂–µ tile - –æ–±—ä–µ–¥–∏–Ω—è–µ–º –∏—Ö
+                    //ß” ß‹ß‡ßﬂßËß÷ ß‰ß‡ßÈßﬂß‡ ß‰ß—ß‹ß‡ß€ ßÿß÷ tile - ß‡ß“ßÏß÷ß’ß⁄ßﬂßÒß÷ßﬁ ß⁄ßÁ
                     state[i][nextFilled] *= 2;
                     score += state[nextFilled][j];
                     state[i][j] = 0;
@@ -168,7 +167,7 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame {
                     freeCount++;
                     result = true;
                 } else {
-                    //–≤ –∫–æ–Ω—Ü–µ –∫–∞–∫–æ–π-—Ç–æ –æ–±—ã—á–Ω—ã–π tile. –ü—Ä–æ—Å—Ç–æ –¥–≤–∏–≥–∞–µ–º –≤ –ø–ª–æ—Ç–Ω—É—é –∫ –Ω–µ–º—É
+                    //ß” ß‹ß‡ßﬂßËß÷ ß‹ß—ß‹ß‡ß€-ß‰ß‡ ß‡ß“ßÌßÈßﬂßÌß€ tile. ß±ß‚ß‡ß„ß‰ß‡ ß’ß”ß⁄ß‘ß—ß÷ßﬁ ß” ß·ß›ß‡ß‰ßﬂßÂß ß‹ ßﬂß÷ßﬁßÂ
                     if (nextFilled - 1 != j) {
                         state[i][nextFilled - 1] = state[i][j];
                         state[i][j] = 0;
@@ -190,7 +189,7 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame {
                     continue;
                 }
 
-                //–ù–∞–π–¥–µ–º –∏–Ω–¥–µ–∫—Å —Å–ª–µ–¥—É—é—â–µ–≥–æ "–∑–∞–Ω—è—Ç–æ–≥–æ" —ç–ª–µ–º–µ–Ω—Ç–∞
+                //ßØß—ß€ß’ß÷ßﬁ ß⁄ßﬂß’ß÷ß‹ß„ ß„ß›ß÷ß’ßÂßßÎß÷ß‘ß‡ "ßŸß—ßﬂßÒß‰ß‡ß‘ß‡" ßÔß›ß÷ßﬁß÷ßﬂß‰ß—
                 int nextFilled = -1;
                 for (int k = j - 1; k >= minCheck[i]; k--) {
                     if (state[i][k] != 0) {
@@ -200,14 +199,14 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame {
                 }
 
                 if (nextFilled == -1) {
-                    //–≤ –∫–æ–Ω—Ü–µ 0 - –¥–≤–∏–≥–∞–µ–º –≤ –∫–æ–Ω–µ—Ü (–µ—Å–ª–∏ —ç—Ç–æ –≤–æ–∑–º–æ–∂–Ω–æ)
+                    //ß” ß‹ß‡ßﬂßËß÷ 0 - ß’ß”ß⁄ß‘ß—ß÷ßﬁ ß” ß‹ß‡ßﬂß÷ßË (ß÷ß„ß›ß⁄ ßÔß‰ß‡ ß”ß‡ßŸßﬁß‡ßÿßﬂß‡)
                     if (minCheck[i] != j) {
                         state[i][minCheck[i]] = state[i][j];
                         state[i][j] = 0;
                         result = true;
                     }
                 } else if (state[i][j] == state[i][nextFilled]) {
-                    //–≤ –∫–æ–Ω–µ—Ü –Ω–µ 0, –∞ —Ç–æ—á–Ω–æ —Ç–∞–∫–æ–π –∂–µ tile - –æ–±—ä–µ–¥–∏–Ω—è–µ–º –∏—Ö
+                    //ß” ß‹ß‡ßﬂß÷ßË ßﬂß÷ 0, ß— ß‰ß‡ßÈßﬂß‡ ß‰ß—ß‹ß‡ß€ ßÿß÷ tile - ß‡ß“ßÏß÷ß’ß⁄ßﬂßÒß÷ßﬁ ß⁄ßÁ
                     state[i][nextFilled] *= 2;
                     score += state[nextFilled][j];
                     state[i][j] = 0;
@@ -215,7 +214,7 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame {
                     freeCount++;
                     result = true;
                 } else {
-                    //–≤ –∫–æ–Ω—Ü–µ –∫–∞–∫–æ–π-—Ç–æ –æ–±—ã—á–Ω—ã–π tile. –ü—Ä–æ—Å—Ç–æ –¥–≤–∏–≥–∞–µ–º –≤ –ø–ª–æ—Ç–Ω—É—é –∫ –Ω–µ–º—É
+                    //ß” ß‹ß‡ßﬂßËß÷ ß‹ß—ß‹ß‡ß€-ß‰ß‡ ß‡ß“ßÌßÈßﬂßÌß€ tile. ß±ß‚ß‡ß„ß‰ß‡ ß’ß”ß⁄ß‘ß—ß÷ßﬁ ß” ß·ß›ß‡ß‰ßﬂßÂß ß‹ ßﬂß÷ßﬁßÂ
                     if (nextFilled + 1 != j) {
                         state[i][nextFilled + 1] = state[i][j];
                         state[i][j] = 0;
@@ -236,7 +235,7 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame {
                     continue;
                 }
 
-                //–ù–∞–π–¥–µ–º –∏–Ω–¥–µ–∫—Å —Å–ª–µ–¥—É—é—â–µ–≥–æ "–∑–∞–Ω—è—Ç–æ–≥–æ" —ç–ª–µ–º–µ–Ω—Ç–∞
+                //ßØß—ß€ß’ß÷ßﬁ ß⁄ßﬂß’ß÷ß‹ß„ ß„ß›ß÷ß’ßÂßßÎß÷ß‘ß‡ "ßŸß—ßﬂßÒß‰ß‡ß‘ß‡" ßÔß›ß÷ßﬁß÷ßﬂß‰ß—
                 int nextFilled = -1;
                 for (int k = i - 1; k >= minCheck[j]; k--) {
                     if (state[k][j] != 0) {
@@ -246,14 +245,14 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame {
                 }
 
                 if (nextFilled == -1) {
-                    //–≤ –∫–æ–Ω—Ü–µ 0 - –¥–≤–∏–≥–∞–µ–º –≤ –∫–æ–Ω–µ—Ü (–µ—Å–ª–∏ —ç—Ç–æ –≤–æ–∑–º–æ–∂–Ω–æ)
+                    //ß” ß‹ß‡ßﬂßËß÷ 0 - ß’ß”ß⁄ß‘ß—ß÷ßﬁ ß” ß‹ß‡ßﬂß÷ßË (ß÷ß„ß›ß⁄ ßÔß‰ß‡ ß”ß‡ßŸßﬁß‡ßÿßﬂß‡)
                     if (minCheck[j] != i) {
                         state[minCheck[j]][j] = state[i][j];
                         state[i][j] = 0;
                         result = true;
                     }
                 } else if (state[i][j] == state[nextFilled][j]) {
-                    //–≤ –∫–æ–Ω—Ü–µ —Ç–æ—á–Ω–æ —Ç–∞–∫–æ–π –∂–µ tile - –æ–±—ä–µ–¥–∏–Ω—è–µ–º –∏—Ö
+                    //ß” ß‹ß‡ßﬂßËß÷ ß‰ß‡ßÈßﬂß‡ ß‰ß—ß‹ß‡ß€ ßÿß÷ tile - ß‡ß“ßÏß÷ß’ß⁄ßﬂßÒß÷ßﬁ ß⁄ßÁ
                     state[nextFilled][j] *= 2;
                     score += state[nextFilled][j];
                     state[i][j] = 0;
@@ -261,7 +260,7 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame {
                     freeCount++;
                     result = true;
                 } else {
-                    //–≤ –∫–æ–Ω—Ü–µ –∫–∞–∫–æ–π-—Ç–æ –æ–±—ã—á–Ω—ã–π tile. –ü—Ä–æ—Å—Ç–æ –¥–≤–∏–≥–∞–µ–º –≤ –ø–ª–æ—Ç–Ω—É—é –∫ –Ω–µ–º—É
+                    //ß” ß‹ß‡ßﬂßËß÷ ß‹ß—ß‹ß‡ß€-ß‰ß‡ ß‡ß“ßÌßÈßﬂßÌß€ tile. ß±ß‚ß‡ß„ß‰ß‡ ß’ß”ß⁄ß‘ß—ß÷ßﬁ ß” ß·ß›ß‡ß‰ßﬂßÂß ß‹ ßﬂß÷ßﬁßÂ
                     if (nextFilled + 1 != i) {
                         state[nextFilled + 1][j] = state[i][j];
                         state[i][j] = 0;
@@ -273,35 +272,42 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame {
         return result;
     }
 
+    protected void hideNotify() {
+        super.hideNotify();
+        pause = true;
+        repaint();
+        System.out.println("Out");
+    }
+
     public boolean isGameOver() {
-        // Ê£ÄÊü•ÊòØÂê¶ËøòÊúâÁ©∫Ê†º
+        // ºÏ≤È «∑Òªπ”–ø’∏Ò
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (state[i][j] == 0) {
-                    return false; // Âè™Ë¶ÅÊúâ‰∏Ä‰∏™Á©∫Ê†ºÔºåÊ∏∏ÊàèÂ∞±ËøòÊ≤°ÊúâÁªìÊùü
+                    return false; // ÷ª“™”–“ª∏ˆø’∏Ò£¨”Œœ∑æÕªπ√ª”–Ω· ¯
                 }
             }
         }
 
-        // Ê£ÄÊü•Ê∞¥Âπ≥ÊñπÂêëÊòØÂê¶ËøòÊúâÁõ∏ÈÇªÂèØÂêàÂπ∂ÁöÑÊï∞Â≠ó
+        // ºÏ≤ÈÀÆ∆Ω∑ΩœÚ «∑Òªπ”–œ‡¡⁄ø…∫œ≤¢µƒ ˝◊÷
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 3; j++) {
                 if (state[i][j] == state[i][j + 1]) {
-                    return false; // Â≠òÂú®Áõ∏ÈÇªÂèØÂêàÂπ∂ÁöÑÊï∞Â≠óÔºåÊ∏∏ÊàèËøòÊ≤°ÊúâÁªìÊùü
+                    return false; // ¥Ê‘⁄œ‡¡⁄ø…∫œ≤¢µƒ ˝◊÷£¨”Œœ∑ªπ√ª”–Ω· ¯
                 }
             }
         }
 
-        // Ê£ÄÊü•ÂûÇÁõ¥ÊñπÂêëÊòØÂê¶ËøòÊúâÁõ∏ÈÇªÂèØÂêàÂπ∂ÁöÑÊï∞Â≠ó
+        // ºÏ≤È¥π÷±∑ΩœÚ «∑Òªπ”–œ‡¡⁄ø…∫œ≤¢µƒ ˝◊÷
         for (int j = 0; j < 4; j++) {
             for (int i = 0; i < 3; i++) {
                 if (state[i][j] == state[i + 1][j]) {
-                    return false; // Â≠òÂú®Áõ∏ÈÇªÂèØÂêàÂπ∂ÁöÑÊï∞Â≠óÔºåÊ∏∏ÊàèËøòÊ≤°ÊúâÁªìÊùü
+                    return false; // ¥Ê‘⁄œ‡¡⁄ø…∫œ≤¢µƒ ˝◊÷£¨”Œœ∑ªπ√ª”–Ω· ¯
                 }
             }
         }
 
-        // Â¶ÇÊûú‰ª•‰∏äÊù°‰ª∂ÈÉΩ‰∏çÊª°Ë∂≥ÔºåÂàôÊ∏∏ÊàèÁªìÊùü
+        // »Áπ˚“‘…œÃıº˛∂º≤ª¬˙◊„£¨‘Ú”Œœ∑Ω· ¯
         return true;
     }
 
@@ -333,11 +339,27 @@ public class Game2048Canvas extends GameCanvas implements IRestartGame {
         if (!isPlay) return;
         drawHandler.Draw(g);
         if (pause) pp.Draw(g);
+        this.drawString(g, "0/∑µªÿ£∫∑µªÿ≤Àµ•", this.getWidth() - 140, this.getHeight() - 30, 4 | 16);
         System.out.println("print");
     }
 
     public void RestartGame() {
         pause = false;
         repaint();
+    }
+
+    private void drawString(Graphics g, String str, int x, int y, int anchor) {
+        g.setColor(0, 0, 0);
+        g.drawString(str, x - 2, y, anchor);
+        g.drawString(str, x + 2, y, anchor);
+        g.drawString(str, x, y - 2, anchor);
+        g.drawString(str, x, y + 2, anchor);
+        g.setColor(0, 0, 129);
+        g.drawString(str, x - 1, y, anchor);
+        g.drawString(str, x + 1, y, anchor);
+        g.drawString(str, x, y - 1, anchor);
+        g.drawString(str, x, y + 1, anchor);
+        g.setColor(199, 218, 243);
+        g.drawString(str, x, y, anchor);
     }
 }
