@@ -31,10 +31,12 @@ public class Midlet extends MIDlet implements IExit {
     }
 
     public void destroyApp(boolean unconditional) {
+        System.out.println("========Exit========");
         rs.setRecord(1, canvas.HISCORE);
         rs.closeRecords();
         canvas.Stop();
         display.setCurrent(null);
+        notifyDestroyed();
     }
 
     public void OpenMenu() {
@@ -57,7 +59,6 @@ public class Midlet extends MIDlet implements IExit {
 
     public void exitMIDlet() {
         destroyApp(true);
-        notifyDestroyed();
     }
 
     public void OpenGameOver() {
