@@ -4,7 +4,7 @@ import java.util.Random;
 import javax.microedition.lcdui.*;
 import javax.microedition.lcdui.game.GameCanvas;
 
-public class Game2048Canvas extends Canvas implements IRestartGame {
+public class Game2048Canvas extends Canvas implements Runnable,IRestartGame {
     public int HISCORE = 0;
     int freeCount;
     private final Random random = new Random();
@@ -32,6 +32,8 @@ public class Game2048Canvas extends Canvas implements IRestartGame {
         score = 0;
         insertNew();
         insertNew();
+        Thread t = new Thread(this);
+        t.start();
     }
 
     public void Stop() {
@@ -340,7 +342,6 @@ public class Game2048Canvas extends Canvas implements IRestartGame {
         drawHandler.Draw(g);
         if (pause) pp.Draw(g);
         this.drawString(g, "0/·µ»Ø£º·µ»Ø²Ëµ¥", this.getWidth() - 140, this.getHeight() - 30, 4 | 16);
-        System.out.println("print");
     }
 
     public void RestartGame() {
@@ -361,5 +362,16 @@ public class Game2048Canvas extends Canvas implements IRestartGame {
         g.drawString(str, x, y + 1, anchor);
         g.setColor(199, 218, 243);
         g.drawString(str, x, y, anchor);
+    }
+
+    public void run() {
+        while (isPlay) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                // Ignored
+            }
+            repaint();
+        }
     }
 }
