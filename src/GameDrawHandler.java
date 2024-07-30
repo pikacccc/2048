@@ -5,6 +5,7 @@ import java.util.Hashtable;
 
 public class GameDrawHandler {
     private Image gameBg;
+    private Image backTip;
     private Image[] numbers;
     private DrawNumberHandler numHandler;
     private Game2048Canvas canvas;
@@ -21,6 +22,8 @@ public class GameDrawHandler {
     private int gameStart_y;
     private int Score_x;
     private int Score_y;
+    private int BackTip_x;
+    private int BackTip_y;
 
     public GameDrawHandler(Game2048Canvas canvas) {
         this.canvas = canvas;
@@ -38,13 +41,16 @@ public class GameDrawHandler {
         gameBg_x = center_x - gameBg.getWidth() / 2;
         gameBg_y = center_y - gameBg.getHeight() / 2;
         Score_x = center_x;
-        Score_y = gameBg_y-20;
-        gameStart_x = gameBg_x+3;
-        gameStart_y = gameBg_y+3;
+        Score_y = gameBg_y - 20;
+        gameStart_x = gameBg_x + 3;
+        gameStart_y = gameBg_y + 3;
+        BackTip_x = width - 140;
+        BackTip_y = height - 45;
     }
 
     public void InitImages() {
         gameBg = Util.LoadImg("/bg_play.png");
+        backTip = Util.LoadImg("/BackTip.png");
         Image tempNumber = Util.LoadImg("/2048.png");
         numHandler = new DrawNumberHandler("/number.png", 16, 24);
         numbers = new Image[17];
@@ -69,6 +75,7 @@ public class GameDrawHandler {
             }
         }
         numHandler.ShowNumber(g, canvas.score, Score_x, Score_y, AlignmentType.Center);
+        g.drawImage(backTip, BackTip_x, BackTip_y, 0);
     }
 
     public int findN(int num) {

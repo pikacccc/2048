@@ -341,7 +341,6 @@ public class Game2048Canvas extends Canvas implements Runnable,IRestartGame {
         if (!isPlay) return;
         drawHandler.Draw(g);
         if (pause) pp.Draw(g);
-        this.drawString(g, "0/·µ»Ø£º·µ»Ø²Ëµ¥", this.getWidth() - 140, this.getHeight() - 30, 4 | 16);
     }
 
     public void RestartGame() {
