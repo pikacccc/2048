@@ -23,7 +23,7 @@ public class Menu extends GameCanvas implements CommandListener, Runnable {
     private int exit_x;
     private int exit_y;
 
-    private String version="V1.2";
+    private String version="V1.4";
 
     public Menu() {
         super(false);
